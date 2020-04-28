@@ -16,7 +16,13 @@ const AWS = require('aws-sdk');
 class S3Service {
 
     constructor() {
-        this.s3 = new AWS.S3();
+        this.s3 = new AWS.S3({
+            signatureVersion: 'v4',
+            credentials: {
+                secretAccessKey: process.env.SECRET_KEY,
+                accessKeyId: process.env.ACCESS_KEY
+            }
+        });
     }
 
     getFile(bucket, key) {
